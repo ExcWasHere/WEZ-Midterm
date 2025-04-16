@@ -8,7 +8,7 @@ class Lecture {
 
     void PrintData() {
         System.out.println("NIDN: " + nidn);
-        System.out.println("Nama: " + nameLecturer);
+        System.out.println("Name: " + nameLecturer);
         System.out.println();
     }
 }
@@ -24,8 +24,8 @@ class Course {
     }
 
     void PrintData() {
-        System.out.println("Kode MK: " + CodeMK);
-        System.out.println("Nama Mata Kuliah: " + NameMK);
+        System.out.println("Code MK: " + CodeMK);
+        System.out.println("course Name: " + NameMK);
         System.out.println("SKS: " + sks);
         System.out.println();
     }

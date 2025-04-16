@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
+
 public class LectureMain {
     public static void main(String[] args) {
         Lecture[] lectureList = {
@@ -10,13 +12,13 @@ public class LectureMain {
         };
 
         Course[] mkList = {
-            new Course("MK001", "Struktur Data", 3),
-            new Course("MK002", "Pemrograman Java", 3),
-            new Course("MK003", "Basis Data", 3),
-            new Course("MK004", "Algoritma dan Pemrograman", 2),
-            new Course("MK005", "Matematika Diskrit", 2),
-            new Course("MK006", "Jaringan Komputer", 3),
-            new Course("MK007", "Pemrograman Web", 3)
+            new Course("MK001", "Data Structure", 3),
+            new Course("MK002", "Java Programming", 3),
+            new Course("MK003", "Database", 3),
+            new Course("MK004", "Algorithm and Programming", 2),
+            new Course("MK005", "Math Diskrit", 2),
+            new Course("MK006", "Computer Network", 3),
+            new Course("MK007", "Web Programming", 3)
         };
 
         Schedule[] scheduleList = {
@@ -28,8 +30,10 @@ public class LectureMain {
             new Schedule(lectureList[4], mkList[5], "Monday", "11:00"),
             new Schedule(lectureList[1], mkList[6], "Wednesday", "14:00")
         };
-
+        
+        Scanner sc = new Scanner(System.in);
         int choose = -1;
+        
         while (choose != 0) {
             System.out.println("\n=== MENU ===");
             System.out.println("1. Show Lecturer Data");
@@ -39,63 +43,68 @@ public class LectureMain {
             System.out.println("5. Search Schedule Data by Lecturer Name");
             System.out.println("0. Exit Please");
             System.out.print("Choose: ");
-            Scanner sc = new Scanner(System.in);
-            choose = sc.nextInt();
-            switch (choose) {
-                case 1:
-                    System.out.println("\n=== DATA LECTURE ===");
-                    for (int i = 0; i < lectureList.length; i++) {
-                        lectureList[i].PrintData();
-                    }
-                    break;
-                case 2:
-                    System.out.println("\n=== DATA COURSE ===");
-                    for (int i = 0; i < mkList.length; i++) {
-                        mkList[i].PrintData();
-                    }
-                    break;
-                case 3:
-                    System.out.println("\n=== DATA SCHEDULE ===");
-                    for (int i = 0; i < scheduleList.length; i++) {
-                        scheduleList[i].showData();
-                    }
-                    break;
-                case 4:
-                    bubbleSort(scheduleList);
-                    System.out.println("\n=== SORT SCHEDULE ===");
-                    for (int i = 0; i < scheduleList.length; i++) {
-                        System.out.println(scheduleList[i].day + " - " + scheduleList[i].hour + " | " + scheduleList[i].lecture.nameLecturer + " - " + scheduleList[i].course.NameMK);
-                    }
-                    break;
-                    case 5:
-                    System.out.print("Input Lecture Name: ");
-                    sc.nextLine(); 
-                    String nameFound = sc.nextLine();
-                    boolean found = false;
-                    System.out.println("\n=== SEARCH SCHEDULE RESULT ===");
-                    for (int i = 0; i < scheduleList.length; i++) {
-                        if (scheduleList[i].lecture.nameLecturer.equalsIgnoreCase(nameFound)) {
-                            scheduleList[i].showData();
-                            found = true;
+            
+            try {
+                choose = sc.nextInt();
+                
+                switch (choose) {
+                    case 1:
+                        System.out.println("\n=== DATA LECTURE ===");
+                        for (int i = 0; i < lectureList.length; i++) {
+                            lectureList[i].PrintData();
                         }
-                    }
-                    if (!found) {
-                        System.out.println("Data dosen dengan nama \"" + nameFound + "\" tidak ditemukan.");
-                    }
-                    break;
-                case 0:
-                    System.out.println("Terima kasih!");
-                    break;
-                default:
-                    System.out.println("Pilihan tidak valid.");
+                        break;
+                    case 2:
+                        System.out.println("\n=== DATA COURSE ===");
+                        for (int i = 0; i < mkList.length; i++) {
+                            mkList[i].PrintData();
+                        }
+                        break;
+                    case 3:
+                        System.out.println("\n=== DATA SCHEDULE ===");
+                        for (int i = 0; i < scheduleList.length; i++) {
+                            scheduleList[i].showData();
+                        }
+                        break;
+                    case 4:
+                        bubbleSort(scheduleList);
+                        System.out.println("\n=== SORT SCHEDULE ===");
+                        for (int i = 0; i < scheduleList.length; i++) {
+                            System.out.println(scheduleList[i].day + " - " + scheduleList[i].hour + " | " + scheduleList[i].lecture.nameLecturer + " - " + scheduleList[i].course.NameMK);
+                        }
+                        break;
+                    case 5:
+                        System.out.print("Input Lecture Name: ");
+                        sc.nextLine(); 
+                        String nameFound = sc.nextLine();
+                        boolean found = false;
+                        System.out.println("\n=== SEARCH SCHEDULE RESULT ===");
+                        for (int i = 0; i < scheduleList.length; i++) {
+                            if (scheduleList[i].lecture.nameLecturer.equalsIgnoreCase(nameFound)) {
+                                scheduleList[i].showData();
+                                found = true;
+                            }
+                        }
+                        if (!found) {
+                            System.out.println("Lecturer data with name \"" + nameFound + "\" Not Found.");
+                        }
+                        break;
+                    case 0:
+                        System.out.println("Thankyou!");
+                        break;
+                    default:
+                        System.out.println("Menu option not found! Please select a valid option.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("\n======= ERROR =======");
+                System.out.println("Please enter a number, not letters or other characters!");
+                sc.nextLine(); 
             }
         }
     }
 
-    static String bacaInput() throws java.io.IOException {
-        byte[] buf = new byte[100];
-        int len = System.in.read(buf);
-        return new String(buf, 0, len).trim();
+    static String readInput(Scanner scanner) {
+        return scanner.nextLine().trim();
     }
 
     static void bubbleSort(Schedule[] data) {
