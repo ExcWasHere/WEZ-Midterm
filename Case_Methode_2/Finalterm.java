@@ -37,6 +37,13 @@ class TransaksiLayanan {
 
     }
 
+    void tampilkanInformasiTransaksi() {
+        System.out.println("Pasien: " + pasien);
+        System.out.println("Dokter: " + dokter);
+        System.out.println("Durasi Layanan: " + durasiLayanan + " menit");
+        System.out.println("Biaya: Rp" + biaya);
+    }
+
     void hitungBiaya() {
         if (durasiLayanan <= 60) {
             biaya = 50000;
