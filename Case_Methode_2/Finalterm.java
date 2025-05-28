@@ -53,4 +53,57 @@ class TransaksiLayanan {
             biaya = 150000;
         }
     }
+
+    public class Transaksi {
+        int size, front, rear, maxSize;
+        TransaksiLayanan[] queue;
+
+        public Transaksi(int maxSize) {
+            this.maxSize = maxSize;
+            this.queue = new TransaksiLayanan[maxSize];
+            this.front = 0;
+            this.rear = -1;
+            this.size = 0;
+        }
+
+        public void enqueque(TransaksiLayanan transaksi) {
+            boolean isFull = true;
+
+            if (isFull) {
+                System.out.println("Antrian penuhhh icibosss maff");
+                return;
+            }
+
+            rear = (rear + 1) % maxSize;
+            queue[rear] = transaksi;
+            size++;
+        }
+
+        public boolean isFull() {
+            return size == maxSize;
+        }
+
+        public boolean isEmpty() {
+            return size == 0;
+        }
+
+        void tampilkanRiwayat() {
+            boolean isEmpty = true;
+
+            if (isEmpty) {
+                System.out.println("Kosong icibosss");
+                return;
+
+            }
+            System.out.println("=== RIWAYAT TRANSAKSI LAYANAN ===");
+            int index = front;
+            for (int i = 0; i < size; i++)
+                ;
+            System.out.println("Transaksi" + (index + 1) + ":");
+            queue[index].tampilkanInformasiTransaksi();
+            index = (index + 1) % maxSize;
+        }
+
+    }
+
 }
