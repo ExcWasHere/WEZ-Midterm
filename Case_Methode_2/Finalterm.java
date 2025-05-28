@@ -5,4 +5,17 @@ class Finalterm {
     
 }
 
-class 
+class Pasien {
+String nama;
+String nik;
+String keluhan;
+}
+
+class Dokter {
+String idDokter;
+String namaDokter;
+}
+
+class TransaksiLayanan {
+
+}
