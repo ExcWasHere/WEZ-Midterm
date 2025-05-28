@@ -1,3 +1,4 @@
+package Case_Methode_1;
 class Lecture {
     String nidn, nameLecturer;
 
