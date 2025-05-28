@@ -30,9 +30,10 @@ class TransaksiLayanan {
     int durasiLayanan, biaya;
     String pasien, dokter;
 
-    TransaksiLayanan(String pasien, String Dokter) {
+    TransaksiLayanan(String pasien, String Dokter, int durasi) {
         this.pasien = pasien;
         this.dokter = Dokter;
+        this.durasiLayanan = durasi;
 
     }
 
