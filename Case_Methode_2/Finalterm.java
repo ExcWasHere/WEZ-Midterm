@@ -17,5 +17,12 @@ String namaDokter;
 }
 
 class TransaksiLayanan {
+    int durasiLayanan, biaya;
+    String pasien, dokter;
+    TransaksiLayanan(String pasien, String Dokter){
+    this.pasien = pasien;
+    this.dokter = Dokter;
+    }
+
 
 }
