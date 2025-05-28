@@ -41,6 +41,8 @@ public class LectureMain {
             System.out.println("3. Show Schedule Data");
             System.out.println("4. Sort Schedule Data");
             System.out.println("5. Search Schedule Data by Lecturer Name");
+            System.out.println("6. Total Teach Duration");
+            System.out.println("7. Average Duration");
             System.out.println("0. Exit Please");
             System.out.print("Choose: ");
             
@@ -89,6 +91,46 @@ public class LectureMain {
                             System.out.println("Lecturer data with name \"" + nameFound + "\" Not Found.");
                         }
                         break;
+                    case 6:
+                    int total = 0;
+                    System.out.print("Input Lecture Name: ");
+                    sc.nextLine();
+                    String lecturerName = sc.nextLine();
+                    total = 0;
+                    found = false;
+                    for (int i = 0; i < scheduleList.length; i++) {
+                        if (scheduleList[i].lecture.nameLecturer.equalsIgnoreCase(lecturerName)) {
+                            total += scheduleList[i].countMinute();
+                            found = true;
+                        }
+                    }
+                    if (found) {
+                        System.out.println("Total Duration for " + lecturerName + ": " + total + " minutes");
+                    } else {
+                        System.out.println("Lecturer " + lecturerName + " not found!");
+                    }
+                        break;
+                    case 7:
+                    System.out.print("Input Lecture Name: ");
+                    sc.nextLine();
+                    String lectureName = sc.nextLine();
+                    total = 0;
+                    int count = 0;
+                    found = false;
+                    for (int i = 0; i < scheduleList.length; i++) {
+                        if (scheduleList[i].lecture.nameLecturer.equalsIgnoreCase(lectureName)) {
+                            total += scheduleList[i].countMinute();
+                            count++;
+                            found = true;
+                        }
+                    }
+                    if (found) {
+                        int average = total / count;
+                        System.out.println("Average Duration for " + lectureName + ": " + average + " minutes");
+                    } else {
+                        System.out.println("Lecturer " + lectureName + " not found!");
+                    }
+                    break;
                     case 0:
                         System.out.println("Thankyou!");
                         break;
