@@ -1,117 +1,117 @@
 package Case_Methode_2;
 import java.util.Scanner;
 
-class Pasien {
-    String nama;
-    String nik;
-    String keluhan;
-    Pasien next;
+class Patient {
+    String name;
+    String idNumber;
+    String complaint;
+    Patient next;
 
-    public Pasien(String nama, String nik, String keluhan) {
-        this.nama = nama;
-        this.nik = nik;
-        this.keluhan = keluhan;
+    public Patient(String name, String idNumber, String complaint) {
+        this.name = name;
+        this.idNumber = idNumber;
+        this.complaint = complaint;
     }
 
-    void tampilkanInformasi() {
-        System.out.println("Nama Pasien: " + nama);
-        System.out.println("NIK: " + nik);
-        System.out.println("Keluhan: " + keluhan);
-    }
-}
-
-class Dokter {
-    String idDokter;
-    String namaDokter;
-
-    void tampilkanInformasiDokter() {
-        System.out.println("ID Dokter: " + idDokter);
-        System.out.println("Nama Dokter: " + namaDokter);
+    void displayInformation() {
+        System.out.println("Patient Name: " + name);
+        System.out.println("ID Number: " + idNumber);
+        System.out.println("Complaint: " + complaint);
     }
 }
 
-class TransaksiLayanan {
-    int durasiLayanan, biaya;
-    String pasien, dokter;
+class Doctor {
+    String doctorId;
+    String doctorName;
 
-    double biayaLayanan;
-    TransaksiLayanan(String pasien, String nik, String keluhan, String idDokter, String namaDokter, double durasi) {
-        this.pasien = pasien;
-        this.dokter = namaDokter;
-        this.durasiLayanan = (int) (durasi * 60);
-        this.biayaLayanan = durasi * 50000;
+    void displayDoctorInformation() {
+        System.out.println("Doctor ID: " + doctorId);
+        System.out.println("Doctor Name: " + doctorName);
+    }
+}
+
+class ServiceTransaction {
+    int serviceDuration, cost;
+    String patient, doctor;
+
+    double serviceCost;
+    ServiceTransaction(String patient, String idNumber, String complaint, String doctorId, String doctorName, double duration) {
+        this.patient = patient;
+        this.doctor = doctorName;
+        this.serviceDuration = (int) (duration * 60);
+        this.serviceCost = duration * 50000;
     }
 
-    void tampilkanInformasiTransaksi() {
-        System.out.println("Pasien: " + pasien);
-        System.out.println("Dokter: " + dokter);
-        System.out.println("Durasi Layanan: " + durasiLayanan + " menit");
-        System.out.println("Biaya: Rp" + biayaLayanan);
+    void displayTransactionInformation() {
+        System.out.println("Patient: " + patient);
+        System.out.println("Doctor: " + doctor);
+        System.out.println("Service Duration: " + serviceDuration + " minutes");
+        System.out.println("Cost: Rp" + serviceCost);
     }
 
-    class AntrianPasien {
-        Pasien head;
-        Pasien tail;
-        int jumlahPasien;
+    class PatientQueue {
+        Patient head;
+        Patient tail;
+        int patientCount;
 
-        public AntrianPasien() {
+        public PatientQueue() {
             this.head = null;
             this.tail = null;
-            this.jumlahPasien = 0;
+            this.patientCount = 0;
         }
 
         public boolean isEmpty() {
             return head == null;
         }
 
-        public int sisaPasien() {
-            return jumlahPasien;
+        public int remainingPatients() {
+            return patientCount;
         }
 
-        public void tambahPasien(String nama, String nik, String keluhan) {
-            Pasien pasienBaru = new Pasien(nama, nik, keluhan);
+        public void addPatient(String name, String idNumber, String complaint) {
+            Patient newPatient = new Patient(name, idNumber, complaint);
             if (head == null) {
-                head = pasienBaru;
-                tail = pasienBaru;
-                pasienBaru.next = null;
+                head = newPatient;
+                tail = newPatient;
+                newPatient.next = null;
             } else {
-                tail.next = pasienBaru;
-                tail = pasienBaru;
-                pasienBaru.next = null;
+                tail.next = newPatient;
+                tail = newPatient;
+                newPatient.next = null;
             }
-            jumlahPasien++;
-            System.out.println("Pasien " + nama + " telah ditambahkan ke antrian.");
+            patientCount++;
+            System.out.println("Patient " + name + " has been added to the queue.");
         }
 
-        public void tampilkanAntrian() {
+        public void displayQueue() {
             if (isEmpty()) {
-                System.out.println("Antrian kosong.");
+                System.out.println("Queue is empty.");
                 return;
             }
 
-            System.out.println("\n=== DAFTAR ANTRIAN PASIEN ===");
-            Pasien current = head;
-            int nomor = 1;
+            System.out.println("\n=== PATIENT QUEUE LIST ===");
+            Patient current = head;
+            int number = 1;
 
             do {
-                System.out.print(nomor + ". ");
-                current.tampilkanInformasi();
+                System.out.print(number + ". ");
+                current.displayInformation();
                 current = current.next;
-                nomor++;
+                number++;
             } while (current != head);
 
-            System.out.println("Total pasien dalam antrian: " + jumlahPasien);
+            System.out.println("Total patients in queue: " + patientCount);
         }
 
-        public Pasien layaniPasien() {
+        public Patient servePatient() {
             if (isEmpty()) {
-                System.out.println("Tidak ada pasien dalam antrian.");
+                System.out.println("No patients in queue.");
                 return null;
             }
 
-            Pasien pasienDilayani = head;
+            Patient servedPatient = head;
 
-            if (jumlahPasien == 1) {
+            if (patientCount == 1) {
                 head = null;
                 tail = null;
             } else {
@@ -119,34 +119,34 @@ class TransaksiLayanan {
                 tail.next = head;
             }
 
-            jumlahPasien--;
-            System.out.println("Melayani pasien: " + pasienDilayani.nama);
-            return pasienDilayani;
+            patientCount--;
+            System.out.println("Serving patient: " + servedPatient.name);
+            return servedPatient;
         }
     }
 
-    public class Transaksi {
+    public class Transaction {
         int size, front, rear, maxSize;
-        TransaksiLayanan[] queue;
+        ServiceTransaction[] queue;
 
-        public Transaksi(int maxSize) {
+        public Transaction(int maxSize) {
             this.maxSize = maxSize;
-            this.queue = new TransaksiLayanan[maxSize];
+            this.queue = new ServiceTransaction[maxSize];
             this.front = 0;
             this.rear = -1;
             this.size = 0;
         }
 
-        public void enqueque(TransaksiLayanan transaksi) {
+        public void enqueue(ServiceTransaction transaction) {
             boolean isFull = true;
 
             if (isFull) {
-                System.out.println("Antrian penuhhh icibosss maff");
+                System.out.println("Queue is full, sorry.");
                 return;
             }
 
             rear = (rear + 1) % maxSize;
-            queue[rear] = transaksi;
+            queue[rear] = transaction;
             size++;
         }
 
@@ -158,139 +158,143 @@ class TransaksiLayanan {
             return size == 0;
         }
 
-        void tampilkanRiwayat() {
+        void displayHistory() {
             boolean isEmpty = true;
 
             if (isEmpty) {
-                System.out.println("Kosong icibosss");
+                System.out.println("No transactions.");
                 return;
 
             }
-            System.out.println("=== RIWAYAT TRANSAKSI LAYANAN ===");
+            System.out.println("=== SERVICE TRANSACTION HISTORY ===");
             int index = front;
             for (int i = 0; i < size; i++)
                 ;
-            System.out.println("Transaksi" + (index + 1) + ":");
-            queue[index].tampilkanInformasiTransaksi();
+            System.out.println("Transaction " + (index + 1) + ":");
+            queue[index].displayTransactionInformation();
             index = (index + 1) % maxSize;
         }
 
     }
 
-    class SistemKlinik {
-        AntrianPasien antrianPasien;
-        Transaksi queueTransaksi;
+    class ClinicSystem {
+        PatientQueue patientQueue;
+        Transaction transactionQueue;
         Scanner scanner;
 
-        public SistemKlinik() {
-            this.antrianPasien = new AntrianPasien();
-            this.queueTransaksi = new Transaksi(100); // Maksimal 100 transaksi
+        public ClinicSystem() {
+            this.patientQueue = new PatientQueue();
+            this.transactionQueue = new Transaction(100); // Maximum 100 transactions
             this.scanner = new Scanner(System.in);
         }
 
-        public void tampilkanMenu() {
-            System.out.println("\n=== SISTEM ANTRIAN PASIEN KLINIK ===");
-            System.out.println("1. Tambah Pasien ke Antrian");
-            System.out.println("2. Tampilkan Daftar Antrian Pasien");
-            System.out.println("3. Layani Pasien");
-            System.out.println("4. Cek Sisa Pasien dalam Antrian");
-            System.out.println("5. Tampilkan Riwayat Transaksi");
-            System.out.println("6. Keluar");
-            System.out.print("Pilih menu: ");
+        public void displayMenu() {
+            System.out.println("\n=== CLINIC PATIENT QUEUE SYSTEM ===");
+            System.out.println("1. Add Patient to Queue");
+            System.out.println("2. Display Patient Queue List");
+            System.out.println("3. Serve Patient");
+            System.out.println("4. Check Remaining Patients in Queue");
+            System.out.println("5. Display Transaction History");
+            System.out.println("6. Exit");
+            System.out.print("Select menu option: ");
         }
 
-        public void tambahPasienMenu() {
-            System.out.println("\n=== TAMBAH PASIEN KE ANTRIAN ===");
-            System.out.print("Masukkan nama pasien: ");
-            String nama = scanner.nextLine();
-            System.out.print("Masukkan No. KTP pasien: ");
-            String noNIK = scanner.nextLine();
-            System.out.print("Masukkan keluhan pasien: ");
-            String keluhan = scanner.nextLine();
+        public void addPatientMenu() {
+            System.out.println("\n=== ADD PATIENT TO QUEUE ===");
+            System.out.print("Enter patient name: ");
+            String name = scanner.nextLine();
+            System.out.print("Enter patient ID Number: ");
+            String idNumber = scanner.nextLine();
+            System.out.print("Enter patient complaint: ");
+            String complaint = scanner.nextLine();
 
-            antrianPasien.tambahPasien(nama, noNIK, keluhan);
+            patientQueue.addPatient(name, idNumber, complaint);
         }
 
-        public void layaniPasienMenu() {
-            System.out.println("\n=== LAYANI PASIEN ===");
-            Pasien pasienDilayani = antrianPasien.layaniPasien();
+        public void servePatientMenu() {
+            System.out.println("\n=== SERVE PATIENT ===");
+            Patient servedPatient = patientQueue.servePatient();
 
-            if (pasienDilayani != null) {
-                System.out.println("\nMasukkan data dokter yang melayani:");
-                System.out.print("ID Dokter: ");
-                String idDokter = scanner.nextLine();
-                System.out.print("Nama Dokter: ");
-                String namaDokter = scanner.nextLine();
-                System.out.print("Durasi layanan (jam): ");
-                double durasi = scanner.nextDouble();
+            if (servedPatient != null) {
+                System.out.println("\nEnter doctor data who serves:");
+                System.out.print("Doctor ID: ");
+                String doctorId = scanner.nextLine();
+                System.out.print("Doctor Name: ");
+                String doctorName = scanner.nextLine();
+                System.out.print("Service duration (hours): ");
+                double duration = scanner.nextDouble();
                 scanner.nextLine();
 
-                TransaksiLayanan transaksi = new TransaksiLayanan(
-                        pasienDilayani.nama,
-                        pasienDilayani.nik,
-                        pasienDilayani.keluhan,
-                        idDokter,
-                        namaDokter,
-                        durasi);
+                ServiceTransaction transaction = new ServiceTransaction(
+                        servedPatient.name,
+                        servedPatient.idNumber,
+                        servedPatient.complaint,
+                        doctorId,
+                        doctorName,
+                        duration);
 
-                queueTransaksi.enqueque(transaksi);
+                transactionQueue.enqueue(transaction);
 
-                System.out.println("\nTransaksi berhasil dicatat:");
-                System.out.println("Biaya layanan: Rp " + String.format("%.0f", transaksi.biayaLayanan));
+                System.out.println("\nTransaction recorded successfully:");
+                System.out.println("Service cost: Rp " + String.format("%.0f", transaction.serviceCost));
             }
         }
 
-        public void cekSisaPasienMenu() {
-            System.out.println("\n=== CEK SISA PASIEN ===");
-            int sisa = antrianPasien.sisaPasien();
-            System.out.println("Sisa pasien dalam antrian: " + sisa);
+        public void checkRemainingPatientsMenu() {
+            System.out.println("\n=== CHECK REMAINING PATIENTS ===");
+            int remaining = patientQueue.remainingPatients();
+            System.out.println("Remaining patients in queue: " + remaining);
 
-            if (sisa > 0) {
-                System.out.println("Pasien selanjutnya yang akan dilayani:");
-                antrianPasien.head.tampilkanInformasi();
+            if (remaining > 0) {
+                System.out.println("Next patient to be served:");
+                patientQueue.head.displayInformation();
             }
         }
 
-        public void jalankan() {
-            int pilihan;
+        public void run() {
+            int choice;
 
             do {
-                tampilkanMenu();
-                pilihan = scanner.nextInt();
+                displayMenu();
+                choice = scanner.nextInt();
                 scanner.nextLine(); // consume newline
 
-                switch (pilihan) {
+                switch (choice) {
                     case 1:
-                        tambahPasienMenu();
+                        addPatientMenu();
                         break;
                     case 2:
-                        antrianPasien.tampilkanAntrian();
+                        patientQueue.displayQueue();
                         break;
                     case 3:
-                        layaniPasienMenu();
+                        servePatientMenu();
                         break;
                     case 4:
-                        cekSisaPasienMenu();
+                        checkRemainingPatientsMenu();
                         break;
                     case 5:
-                        queueTransaksi.tampilkanRiwayat();
+                        transactionQueue.displayHistory();
                         break;
                     case 6:
-                        System.out.println("Terima kasih telah menggunakan sistem antrian klinik!");
+                        System.out.println("Thank you for using the clinic queue system!");
                         break;
                     default:
-                        System.out.println("Pilihan tidak valid!");
+                        System.out.println("Invalid choice!");
                 }
 
-                if (pilihan != 6) {
-                    System.out.println("\nTekan Enter untuk melanjutkan...");
+                if (choice != 6) {
+                    System.out.println("\nPress Enter to continue...");
                     scanner.nextLine();
                 }
 
-            } while (pilihan != 6);
+            } while (choice != 6);
         }
     }
 
-
-
+    public class WahyuExcellZakyClinic {
+        public static void main(String[] args) {
+            ClinicSystem system = new ClinicSystem();
+            system.run();
+        }
+    }
 }
