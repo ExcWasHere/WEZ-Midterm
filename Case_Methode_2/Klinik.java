@@ -46,7 +46,7 @@ class TransaksiLayanan {
         System.out.println("Pasien: " + pasien);
         System.out.println("Dokter: " + dokter);
         System.out.println("Durasi Layanan: " + durasiLayanan + " menit");
-        System.out.println("Biaya: Rp" + biaya);
+        System.out.println("Biaya: Rp" + biayaLayanan);
     }
 
     class AntrianPasien {
@@ -291,6 +291,6 @@ class TransaksiLayanan {
         }
     }
 
-    
+
 
 }
