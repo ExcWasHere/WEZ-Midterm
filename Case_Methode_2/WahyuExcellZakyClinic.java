@@ -130,7 +130,8 @@ class ServiceTransaction {
 }
 
 class Transaction {
-    int size, front, rear, maxSize;
+    int size, front, rear;
+    int maxSize = 15;
     ServiceTransaction[] queue;
 
     public Transaction(int maxSize) {
@@ -151,7 +152,7 @@ class Transaction {
         queue[rear] = transaction;
         size++;
     }
-
+    
     public boolean isFull() {
         return size == maxSize;
     }
